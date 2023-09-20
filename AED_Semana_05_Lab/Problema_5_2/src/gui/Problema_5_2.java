@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.EventQueue;
+import semana_05.ArregloSueldos;
+import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -75,6 +77,10 @@ public class Problema_5_2 extends JFrame implements ActionListener {
 		txtS.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		scrollPane.setViewportView(txtS);
 	}
+	
+	ArregloSueldos as = new ArregloSueldos();
+	DecimalFormat unDecimal = new DecimalFormat("#.#");
+
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnGenerar) {
 			actionPerformedBtnGenerar(arg0);
@@ -87,10 +93,26 @@ public class Problema_5_2 extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnListar(ActionEvent arg0) {
+		txtS.setText("");
+ 	 	for (int i=0; i<as.tamanio(); i++){
+ 			imprimir("n[" + i + "] :  " + unDecimal.format(as.obtener(i)));
+ 	 	}
 	}
 	protected void actionPerformedBtnReportar(ActionEvent arg0) {
+		imprimir();    	
+    	imprimir("Cantidad de sueldos                                       :  " + as.tamanio());
+    	imprimir("Sueldo promedio                                           :  " + unDecimal.format(as.sueldoPromedio()));
+    	imprimir("Sueldo mayor                                              :  " + unDecimal.format(as.sueldoMayor()));
+    	imprimir("Sueldo menor                                              :  " + unDecimal.format(as.sueldoMenor()));
+    	imprimir("Empleados con un sueldo mayor o igual al sueldo promedio  :  " + as.cantMayoresSueldoPromedio());
+    	imprimir("Empleados con un sueldo menor al sueldo promedio          :  " + as.cantMenoresSueldoPromedio());
+    	imprimir("Segundo sueldo mayor a S/. 850                            :  " + as.posSegundoSueldoMayorAlMinimo());
+    	imprimir("Ultimo sueldo menor a S/.850                              :  " + as.posUltimoSueldoMenorAlMinimo());
 	}
 	protected void actionPerformedBtnGenerar(ActionEvent arg0) {
+		as.generarSueldos();
+		imprimir();
+    	imprimir("Los sueldos han sido cambiadas. Pulse [Listar]");
 	}
 	//  Métodos tipo void (sin parámetros)
 	void imprimir() {
