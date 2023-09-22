@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import semana_05.ArregloNotas;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -75,6 +76,9 @@ public class Propuesto_5_1 extends JFrame implements ActionListener {
 		txtS.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		scrollPane.setViewportView(txtS);
 	}
+	
+	ArregloNotas ae = new ArregloNotas(); 
+	
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == btnGenerar) {
 			actionPerformedBtnGenerar(arg0);
@@ -87,10 +91,27 @@ public class Propuesto_5_1 extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnListar(ActionEvent arg0) {
+		txtS.setText("");
+		for (int i=0; i<ae.tamanio(); i++){
+ 			imprimir("n[" + i + "] :  " + ae.obtener(i));
+ 	 	}
 	}
 	protected void actionPerformedBtnReportar(ActionEvent arg0) {
+		imprimir();    	
+    	imprimir("Cantidad de notas                   :  " + ae.tamanio());
+    	imprimir("Nota promedio                       :  " + ae.notaPromedio());
+    	imprimir("Nota mayor                          :  " + ae.notaMayor());
+    	imprimir("Nota menor                          :  " + ae.notaMenor());
+    	imprimir("Cantidad de notas aprobatorias      :  " + ae.cantNotasAprobatorias());
+    	imprimir("Cantidad de notas desaprobatorias   :  " + ae.cantNotasDesaprobatorias());
+    	imprimir("Cantidad de notas mayores a 15      :  " + ae.cantNotasMayoresA15());
+    	imprimir("Primera nota mayor o igual a 13     :  " + ae.posPrimeraNotaAprobatoria());
+    	imprimir("Penultima nota menor a 13           :  " + ae.posPenultimaNotaDesaprobatoria());
 	}
 	protected void actionPerformedBtnGenerar(ActionEvent arg0) {
+		ae.generarNotas();
+		imprimir();
+    	imprimir("Las notas han sido cambiadas. Pulse [Listar]");
 	}
 	//  Métodos tipo void (sin parámetros)
 	void imprimir() {
